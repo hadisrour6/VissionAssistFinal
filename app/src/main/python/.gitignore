@@ -1,0 +1,8 @@
+*.mp4
+*.pt
+*.jpg
+*.png
+*.pyc
+Depth-Anything-V2/*
+depth_outputs_images
+pyenv

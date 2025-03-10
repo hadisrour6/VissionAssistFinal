@@ -1,0 +1,8 @@
+ultralytics==8.3.20
+opencv-python
+numpy
+timm
+torch 
+torchvision 
+matplotlib
+pyttsx3

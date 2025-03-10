@@ -1,0 +1,25 @@
+train: /content/drive/MyDrive/dataSetForTraining_Capstone/NewDataSet/WOTR_YOLO/train
+val: /content/drive/MyDrive/dataSetForTraining_Capstone/NewDataSet/WOTR_YOLO/valid
+test: /content/drive/MyDrive/dataSetForTraining_Capstone/NewDataSet/WOTR_YOLO/test
+nc: 20
+names: 
+- tree
+- red_light
+- green_light
+- crosswalk
+- tactile_paving
+- sign
+- pedestrian
+- bicycle
+- bus
+- truck
+- car
+- motorcycle
+- reflective_cone
+- Trash_can
+- warning_column
+- roadblock
+- pole
+- dog
+- tricycle
+- fire_hydrant

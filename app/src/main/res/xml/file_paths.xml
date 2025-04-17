@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Allows reading files in getCacheDir() -->
+    <cache-path
+        name="cache_files"
+        path="." />
+
+    <!-- Allows reading files in getExternalFilesDir(...) if needed -->
+    <external-files-path
+        name="external_files"
+        path="." />
+</paths>

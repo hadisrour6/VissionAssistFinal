@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ"/>
 
     <application
         android:requestLegacyExternalStorage="true"
@@ -33,10 +35,23 @@
         </activity>
 
         <!-- Declare CameraActivity -->
-        <activity android:name=".CameraActivity" />
+        <activity android:name=".CameraFeedActivity" />
 
         <!-- Declare HowToUseActivity -->
         <activity android:name=".HowToUseActivity" />
+
+        <!-- Declare ReadyVideosActivity -->
+        <activity android:name=".ReadyVideosActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.vissionassistfinal;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,85 +34,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Find buttons
-        Button uploadButton = findViewById(R.id.btn_upload);
-        Button processButton = findViewById(R.id.btn_process);
+        Button howToUseButton = findViewById(R.id.howToUseButton);
+        Button StartButton = findViewById(R.id.startButton);
+        Button ReadyVideoButton = findViewById(R.id.ReadyVideos);
 
-        // Upload button click listener
-        uploadButton.setOnClickListener(new View.OnClickListener() {
+
+
+        howToUseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_CODE_PICK_VIDEO);
+                // Launch HowToUseActivity
+                Intent intent = new Intent(MainActivity.this, HowToUseActivity.class);
+                startActivity(intent);
             }
         });
 
-        // Process button click listener
-        processButton.setOnClickListener(new View.OnClickListener() {
+       ReadyVideoButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               // Launch ReadyVideosActivity
+               Intent intent = new Intent(MainActivity.this, ReadyVideosActivity.class);
+               startActivity(intent);
+           }
+       });
+
+        StartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedVideoPath != null) {
-                    processVideo(selectedVideoPath);
-                } else {
-                    Toast.makeText(MainActivity.this, "Please select a video first", Toast.LENGTH_SHORT).show();
-                }
+                // Launch ReadyVideosActivity
+                Intent intent = new Intent(MainActivity.this, CameraFeedActivity.class);
+                startActivity(intent);
             }
         });
+
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_PICK_VIDEO && resultCode == RESULT_OK && data != null) {
-            Uri selectedVideoUri = data.getData();
-            selectedVideoPath = getRealPathFromURI(selectedVideoUri);
-
-            if (selectedVideoPath != null && new File(selectedVideoPath).exists()) {
-                Toast.makeText(this, "Video selected: " + selectedVideoPath, Toast.LENGTH_SHORT).show();
-                Log.d("VideoPath", "Selected video path: " + selectedVideoPath);
-            } else {
-                Toast.makeText(this, "Invalid video file", Toast.LENGTH_SHORT).show();
-                Log.e("VideoError", "File does not exist at path: " + selectedVideoPath);
-            }
-        }
-    }
-
-
-    private void processVideo(String videoPath) {
-        try {
-            // Call Python script using Chaquopy
-            Python py = Python.getInstance();
-            String processedVideoPath = py.getModule("video_processor").callAttr("run_video_processing", videoPath).toString();
-
-            Toast.makeText(this, "Processing completed! Playing video...", Toast.LENGTH_SHORT).show();
-            playProcessedVideo(processedVideoPath);
-        } catch (Exception e) {
-            Toast.makeText(this, "Error processing video: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            Log.e("VideoProcessing", "Error: ", e);
-        }
-    }
-
-    private void playProcessedVideo(String videoPath) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(videoPath), "video/mp4");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
-    }
-
-    // ✅ Converts Uri to absolute file path
-    private String getRealPathFromURI(Uri uri) {
-        String[] projection = {MediaStore.Video.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-            cursor.moveToFirst();
-            String path = cursor.getString(columnIndex);
-            cursor.close();
-            return path;
-        }
-        return null;
-    }
-
-
-
 }

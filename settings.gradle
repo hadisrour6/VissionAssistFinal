@@ -1,0 +1,11 @@
+// settings.gradle
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+rootProject.name = "AppRepo"
+include ':app'
+include ':opencv'

@@ -1,15 +1,26 @@
+# OpenCV
+opencv/
+opencv-*/
+opencv_*/
+
+# Ultralytics
+ultralytics/
+ultralytics-*/
+
+# Build files
+build/
+*.apk
+*.aab
+
+# IDE files
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.vscode/
+
+# OS files
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+Thumbs.db
+
+# Gradle files
+.gradle/
 local.properties
